@@ -13,9 +13,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface CallIntegration {
+public interface SwApiIntegration {
 
-    @GET("")
+    @GET()
     Call<Root> getRootUrls();
 
     @GET("people/")
