@@ -1,16 +1,16 @@
-package br.com.starwars.service;
+package br.com.starwars.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @RequiredArgsConstructor
-@Service
+@Component
 public class CallIntegratorGenerator {
 
     @Value("${external-api.swapi}")

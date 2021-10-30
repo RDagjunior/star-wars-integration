@@ -1,39 +1,40 @@
 package br.com.starwars.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@Builder
-public class Planet implements Serializable {
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Planet {
 
-    public String name;
-    public String diameter;
-    public String gravity;
-    public String population;
-    public String climate;
-    public String terrain;
-    public String created;
-    public String edited;
-    public String url;
+    private String name;
+    private String diameter;
+    private String gravity;
+    private String population;
+    private String climate;
+    private String terrain;
+    private String created;
+    private String edited;
+    private String url;
 
     @JsonProperty("rotation_period")
-    public String rotationPeriod;
+    private String rotationPeriod;
 
     @JsonProperty("orbital_period")
-    public String orbitalPeriod;
+    private String orbitalPeriod;
 
     @JsonProperty("surface_water")
-    public String surfaceWater;
+    private String surfaceWater;
 
     @JsonProperty("residents")
-    public List<String> residentsUrls;
+    private List<String> residentsUrls;
 
     @JsonProperty("films")
-    public List<String> filmsUrls;
+    private List<String> filmsUrls;
 }

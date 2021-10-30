@@ -1,7 +1,11 @@
 package br.com.starwars.service;
 
 import br.com.starwars.client.SwApiIntegration;
+import br.com.starwars.component.CallExecutor;
+import br.com.starwars.component.CallIntegratorGenerator;
+import br.com.starwars.domain.Film;
 import br.com.starwars.domain.response.FilmResponse;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -9,29 +13,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class StarWarsService {
+public class FilmService {
 
     private final CallIntegratorGenerator callGenerator;
     private final CallExecutor executor;
     private final SwApiIntegration swApiIntegration;
 
-    public StarWarsService(CallIntegratorGenerator callGenerator, CallExecutor executor) {
+    public FilmService(CallIntegratorGenerator callGenerator, CallExecutor executor) {
         this.callGenerator = callGenerator;
         this.executor = executor;
         this.swApiIntegration = createCall();
     }
 
     public FilmResponse findById(String id) {
-        var allFilms = swApiIntegration.getFilm(id);
-        var filmResponse = executor.verifyStatus(allFilms);
+        var film = swApiIntegration.getFilm(id);
+        var filmResponse = executor.verifyStatus(film);
         return new FilmResponse(filmResponse.body());
     }
 
     public List<FilmResponse> findAllFilms() {
         var allFilms = swApiIntegration.getAllFilms();
-
         var filmResponse = executor.verifyStatus(allFilms);
-        return filmResponse.body().getResults().stream().map(FilmResponse::new).collect(Collectors.toList());
+        var filmsList = filmResponse.body().getResults();
+        filmsList.sort(Comparator.comparingInt(Film::getEpisodeId));
+        return filmsList.stream().map(FilmResponse::new).collect(Collectors.toList());
     }
 
     private SwApiIntegration createCall() {

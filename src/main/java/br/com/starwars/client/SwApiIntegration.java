@@ -3,7 +3,6 @@ package br.com.starwars.client;
 import br.com.starwars.domain.Film;
 import br.com.starwars.domain.People;
 import br.com.starwars.domain.Planet;
-import br.com.starwars.domain.Root;
 import br.com.starwars.domain.SWModelList;
 import br.com.starwars.domain.Species;
 import br.com.starwars.domain.Starship;
@@ -14,9 +13,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SwApiIntegration {
-
-    @GET()
-    Call<Root> getRootUrls();
 
     @GET("people/")
     Call<SWModelList<People>> getAllPeople(@Query("page") int page);
@@ -49,7 +45,7 @@ public interface SwApiIntegration {
     Call<Species> getSpecies(@Path("id") int speciesId);
 
     @GET("planets/")
-    Call<SWModelList<Planet>> getAllPlanets(@Query("page") Integer page);
+    Call<SWModelList<Planet>> getAllPlanets(@Query("page") int page);
 
     @GET("planets/{id}/")
     Call<Planet> getPlanet(@Path("id") int planetId);
