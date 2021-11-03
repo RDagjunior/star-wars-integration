@@ -34,9 +34,13 @@ public class FilmService {
     public List<FilmResponse> findAllFilms() {
         var allFilms = swApiIntegration.getAllFilms();
         var filmResponse = executor.verifyStatus(allFilms);
-        var filmsList = filmResponse.body().getResults();
-        filmsList.sort(Comparator.comparingInt(Film::getEpisodeId));
+        var filmsList = sortFilmList(filmResponse.body().getResults());
         return filmsList.stream().map(FilmResponse::new).collect(Collectors.toList());
+    }
+
+    private List<Film> sortFilmList(List<Film> filmsList) {
+        filmsList.sort(Comparator.comparingInt(Film::getEpisodeId));
+        return filmsList;
     }
 
     private SwApiIntegration createCall() {
