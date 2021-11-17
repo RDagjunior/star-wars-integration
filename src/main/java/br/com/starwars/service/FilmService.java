@@ -38,9 +38,9 @@ public class FilmService {
         return filmsList.stream().map(FilmResponse::new).collect(Collectors.toList());
     }
 
-    private List<Film> sortFilmList(List<Film> filmsList) {
-        filmsList.sort(Comparator.comparingInt(Film::getEpisodeId));
-        return filmsList;
+    private List<Film> sortFilmList(List<Film> films) {
+        films.sort(Comparator.comparingInt(Film::getEpisodeId));
+        return films;
     }
 
     private SwApiIntegration createCall() {
